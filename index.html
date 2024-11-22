@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses Client</title>
+</head>
+
+<body>
+    <h1>Courses Client</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Course Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="coursesBody"></tbody>
+    </table>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const response = await fetch("http://127.0.0.1:8081/api/courses"); //GET endpoint (path to a resourse)
+            const data = await response.json(); //calls JSON.parse() for us
+            coursesBody.innerHTML = data.map(c=>`
+                <tr>
+                    <td>${c.courseName}</td>
+                    <td><a href="details.html?courseid=${c.id}">Open Dettails</a></td>
+                </tr>
+            `).join('');
+        });//end loaded
+
+        //           {
+        //     "id": 1,
+        //     "dept": "CompSci",
+        //     "courseNum": 101,
+        //     "courseName": "HTML5 and CSS3",
+        //     "instructor": "Rob",
+        //     "startDate": "July 8",
+        //     "numDays": 10
+        //   },
+    </script>
+</body>
+
+</html>
